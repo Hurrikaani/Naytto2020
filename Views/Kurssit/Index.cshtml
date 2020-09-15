@@ -1,0 +1,65 @@
+﻿@model IEnumerable<NäyttöProjekti.Models.Kurssit>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Kurssit</h2>
+
+
+<p>
+    @Html.ActionLink("Lisää uusi kurssi", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nimi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Kuvaus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.alkuPvm)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.loppuPvm)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Laajuus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Toteutuskausi)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nimi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Kuvaus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.alkuPvm)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.loppuPvm)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Laajuus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Toteutuskausi)
+            </td>
+            <td>
+                @Html.ActionLink("Muokkaa", "Edit", new { id = item.KurssiID }) |
+                @Html.ActionLink("Tiedot", "Details", new { id = item.KurssiID }) |
+                @Html.ActionLink("Poista", "Delete", new { id = item.KurssiID })
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,127 @@
+﻿@model IEnumerable<NäyttöProjekti.Models.Opiskelija>
+@{
+    ViewBag.Title = "Opiskelijat";
+}
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            $(".showOrderClass").click(function () {
+                let opiskelijaId = $(this).data("opiskelijaid");
+                alert("Klikkasit Opiskelijaa: " + opiskelijaId);
+                var url = "/Opiskelija/_Valitutkurssit/?OpiskelijaID=" + opiskelijaId;
+                $("#orderDetails_" + opiskelijaId).append(" <b>Ladataan tilauksen " + opiskelijaId + " rivejä...</b>");
+
+                var $detailDiv = $("#orderDetails_" + opiskelijaId);
+                console.log(url);
+                console.log($detailDiv);
+                $.get(url, function (data) {
+                    $detailDiv.replaceWith(data);
+                });
+            });
+        });
+    </script>
+
+
+}
+
+
+
+<div class="ylaosa">
+    <h2>Opiskelijalistaus</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <button style="background-color:orange" data-toggle="collapse" data-target="#opiskelijat">Näytä opiskelijoiden määrä</button>
+            <div id="opiskelijat" class="collapse">
+                <h5>Opiskelijoita yhteensä @Model.Count()</h5>
+            </div>
+            @*<p>
+                @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
+            </p>*@
+        </div>
+        <div class="col-md-4">
+            @using (Html.BeginForm("Index", "Opiskelija", FormMethod.Get))
+            {
+                <div class="input-group">
+                    <p class="px-1">@Html.Label("Etsi sukunimen perusteella")</p>
+                    <p class="px-1">@Html.TextBox("SearchString1", ViewBag.currentFilter1 as string, new { @class = "form-control" })</p>
+                    <p class="px-1"><input type="submit" value="Etsi" class="form-control" /></p>
+                </div>
+            }
+        </div>
+        <div class="col-md-4">
+         
+
+        </div>
+    </div>
+</div>
+
+
+<p>
+    @Html.ActionLink("Lisää uusi opiskelija", "Create")
+</p>
+<div class="container-fluid">
+    <div class="card-header">
+        <h3>@ViewBag.PoistoViesti</h3>
+        <a class="card-link">
+            <form>
+                <div class="input-group">
+                    @*<div class="input-group-prepend">
+                            <span class="input-group-text bg-warning font-weight-bold">Order</span>
+                        </div>*@
+                    <input type="text" class="form-control bg-warning font-weight-bold px-2" value="Etunimi" disabled>
+                    <input type="text" class="form-control bg-warning font-weight-bold px-2" value="Sukunimi" disabled>
+                    <input type="text" class="form-control bg-warning font-weight-bold px-2" value="Puhelin" disabled>
+                    <input type="text" class="form-control bg-warning font-weight-bold px-2" value="Email" disabled>
+                    <input type="text" class="form-control bg-warning font-weight-bold px-2" value="Osoite" disabled>
+                    <input type="text" class="form-control bg-warning font-weight-bold px-2" value="Lisätiedot" disabled>
+                    @*<input type="text" class="form-control bg-warning font-weight-bold px-2" value="Shipper" disabled>*@
+                </div>
+            </form>
+        </a>
+    </div>
+    <div id="accordion">
+        @foreach (var item in Model)
+        {
+           
+           
+        <div class="card">
+          
+            <div class="card-header">
+                <a class="card-link showOrderClass" data-opiskelijaid="@item.OpiskelijaID" data-toggle="collapse" href="#collapse_@item.OpiskelijaID">
+                    <form>
+                        <div class="input-group">
+
+
+                            @*<div class="input-group-prepend">
+                <span class="input-group-text">@item.OpiskelijaID</span>
+            </div>*@
+                            @*<label class="px-2" for="usr">@Html.DisplayNameFor(model => model.Customers.CompanyName):</label>*@
+                            <input type="text" class="form-control px-2" value="@item.Etunimi" disabled>
+                            <input type="text" class="form-control px-2" value="@item.Sukunimi" disabled>
+                            <input type="text" class="form-control px-2" value="@item.Puhelin" disabled>
+                            <input type="text" class="form-control px-2" value="@item.Email" disabled>
+                            <input type="text" class="form-control px-2" value="@item.Osoite" disabled>
+                            <input type="text" class="form-control px-2" value="@item.Lisatiedot" disabled>
+
+
+                            @*<input type="text" class="form-control px-2" value="@item.Shippers.CompanyName" disabled>*@
+                        </div>
+                        @Html.ActionLink("Muokkaa opiskelijaa", "Edit", new { id = item.OpiskelijaID }) |
+                         @Html.ActionLink("Poista", "Delete", new { id = item.OpiskelijaID })
+                    </form>
+                </a>
+            </div>
+            <div id="collapse_@item.OpiskelijaID" class="collapse" data-parent="#accordion">
+                <div class="card-body">
+                    <div id="orderDetails_@item.OpiskelijaID"></div>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>
+
+
+
+
+

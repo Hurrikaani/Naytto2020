@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="91f97dab3fe245edbf1c1d932aa5309f" Name="Diagram1">
+        <EntityTypeShape EntityType="OpiskelijaTietokantaModel.Opiskelija" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="OpiskelijaTietokantaModel.Postitoimipaikat" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <AssociationConnector Association="OpiskelijaTietokantaModel.FK_Opiskelija_Postitoimipaikat" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="OpiskelijaTietokantaModel.User" Width="1.5" PointX="2.5" PointY="4.375" />
+        <EntityTypeShape EntityType="OpiskelijaTietokantaModel.Kurssit" Width="1.5" PointX="7.375" PointY="3.375" />
+        <EntityTypeShape EntityType="OpiskelijaTietokantaModel.Kurssivalinnat" Width="1.5" PointX="5.25" PointY="1.5" />
+        <AssociationConnector Association="OpiskelijaTietokantaModel.FK_Kurssivalinnat_Kurssit" />
+        <AssociationConnector Association="OpiskelijaTietokantaModel.FK_kurssivalinnat_opiskelijat" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,88 @@
+﻿@{
+    if (Session["User"] == null)
+    {
+        Response.Redirect("~/Login/Index");
+    }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        @*<a class="navbar-brand" href="#">Navbar</a>*@
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    @*<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>*@
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="~/Opiskelija/Index">Opiskelijat</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="~/Kurssit/Index">Kurssit</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="~/Login/LogOut">Ulos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="~/Users/Index">Hallintapaneeli</a>
+                </li>
+                <li class="nav-item">
+                    @*<a class="nav-link disabled" href="#">Disabled</a>*@
+                </li>
+            </ul>
+        </div>
+    </nav>
+    @*<nav class="navbar navbar-dark bg-dark">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Opiskelijarekisteri", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Etusivu", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Opiskelijat", "Index", "Opiskelija")</li>
+                        <li>@Html.ActionLink("Kurssit", "Index", "Kurssit")</li>
+                        <li>@Html.ActionLink("(Ulos)", "Logout", "Login")</li>
+                        @{
+                            if (Session["adminUser"] != null)
+                            {
+                                <li>
+
+                                    @Html.ActionLink("(Hallintapaneeli)", "Index", "Users", new { @class = "glyphicon glyphicon-user" })
+                                </li>
+                            }
+
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>*@
+    <div class="container body-content">
+
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year -</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

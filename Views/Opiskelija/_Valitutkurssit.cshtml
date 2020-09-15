@@ -1,0 +1,94 @@
+﻿<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+@model IEnumerable<NäyttöProjekti.ViewModels.ValitutKurssit>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+
+<script>
+
+    //var opiskelijaID = 0;
+    var valittukurssiID = 0;
+    $(document).ready(function () {
+
+
+        $(".valittavatkurssitDropDown").change(function () {
+            valittukurssiID = $("option:selected", this).val();
+            alert("You have selected the country - " + valittukurssiID);
+        });
+
+        $("#nappula").click(function () {
+            //alert("Tämä on viewbag" , opiskelijaID);
+            alert("Kurssi lisätty valitulle oppilaalle, päivitä lopuksi sivu");
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("Valitsekurssit", "Kurssit")",
+                data: { valittukurssiID:valittukurssiID , opiskelijaID:  @ViewBag.OpiskelijaID },
+                dataType: "text",
+                success: function (msg) {
+                    alert(+ msg);
+                },
+                error: function (req, status, error) {
+                    alert(error);
+                }
+                
+            });
+        
+        });
+    });
+
+
+</script>
+
+<div class="row">
+    <h3>Lisää kursseja</h3>
+    <div class="col-md-2 pb-3 valittavatkurssitDropDown">   @Html.DropDownList("KurssiID", (IEnumerable<SelectListItem>)ViewBag.Valittavakurssit, null, new { @class = "form-control" })   </div>
+    <div class="col-md-2 nappula"><button type="button" id="nappula">Lisää kurssi</button></div>
+   <div class="col-md-2 nappula success"><a href="@Url.Action("PäivitäListaus", "Opiskelija")">Päivitä Listaus</a></div>
+    <div class="col-md-6"></div>
+</div>
+
+
+
+<div class="row">
+    <div class="card-container centermx drop-shadow lifted">
+        <div class="card">
+            <div class="card-header ">
+                <form>
+                    <div class="input-group">
+                        @*<div class="input-group-prepend">
+                                <span class="input-group-text bg-warning font-weight-bold">Order</span>
+                            </div>*@
+                        <input type="text" class="form-control bg-success font-weight-bold px-2" value="Nimi" disabled>
+                        <input type="text" class="form-control bg-success font-weight-bold px-2" value="Kuvaus" disabled>
+                        <input type="text" class="form-control bg-success font-weight-bold px-2" value="Alkupvm" disabled>
+                        <input type="text" class="form-control bg-success font-weight-bold px-2" value="Loppupvm" disabled>
+                        <input type="text" class="form-control bg-success font-weight-bold px-2" value="Laajuus" disabled>
+                        <input type="text" class="form-control bg-success font-weight-bold px-2" value="Toteutuskausi" disabled>
+
+                        @*<input type="text" class="form-control bg-warning font-weight-bold px-2" value="Shipper" disabled>*@
+                    </div>
+                </form>
+            </div>
+            @foreach (var item in Model)
+            {
+                <div class="card-body">
+                    <form>
+                        <div class="input-group">
+                            @*<div class="input-group-prepend">
+                                    <span class="input-group-text">@item.OpiskelijaID</span>
+                                </div>*@
+                            @*<label class="px-2" for="usr">@Html.DisplayNameFor(model => model.Customers.CompanyName):</label>*@
+                            <input type="text" class="form-control px-2" value="@item.Nimi" disabled>
+                            <input type="text" class="form-control px-2" value="@item.Kuvaus" disabled>
+                            <input type="text" class="form-control px-2" value="@item.alkuPvm" disabled>
+                            <input type="text" class="form-control px-2" value="@item.loppuPvm" disabled>
+                            <input type="text" class="form-control px-2" value="@item.Laajuus" disabled>
+                            <input type="text" class="form-control px-2" value="@item.Toteutuskausi" disabled>
+                            @*<input type="text" class="form-control px-2" value="@item.Shippers.CompanyName" disabled>*@
+                        </div>
+                    </form>
+                </div>
+            }
+        </div>
+    </div>
+    <hr />
+</div>

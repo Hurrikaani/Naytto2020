@@ -1,0 +1,53 @@
+﻿@model IEnumerable<NäyttöProjekti.Models.User>
+
+@{
+    ViewBag.Title = "Index";
+}
+@{
+    if (Session["adminUser"] == null)
+    {
+        
+        Response.Redirect("~/Opiskelija/Index");
+    }
+
+}
+<h2>Tervetuloa käyttäjien hallintapaneeliin</h2>
+
+<p>
+    @Html.ActionLink("Luo uusi käyttäjä", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AdminUser)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AdminUser)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.UserID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.UserID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.UserID })
+            </td>
+        </tr>
+    }
+
+</table>
